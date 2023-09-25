@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 
-export const useTweetsStore = defineStore("tweets", () => {
+export const useTweetStore = defineStore("tweets", () => {
     type Tweet = {
         id: number;
         contents: string;
