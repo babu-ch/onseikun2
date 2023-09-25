@@ -5,6 +5,7 @@ import Home from "./components/Home.vue";
 import Tweet from "./components/Tweet.vue";
 import Profile from "./components/Profile.vue";
 import {createRouter, createWebHistory} from "vue-router";
+import {createPinia} from "pinia";
 
 const routes = [
     {path: "/", component: Home},
@@ -17,7 +18,10 @@ const router = createRouter({
     routes
 });
 
+const pinia = createPinia();
+
 const app = createApp(App);
 app.use(router);
+app.use(pinia);
 
 app.mount('#app')
