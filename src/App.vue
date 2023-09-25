@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Assistant from "./components/Assistant.vue";
 </script>
 
 <template>
@@ -17,6 +18,7 @@
     <h3>view</h3>
     <router-view></router-view>
   </div>
+  <Assistant />
 </template>
 
 <style scoped>
