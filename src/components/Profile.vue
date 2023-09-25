@@ -1,34 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import {useUserStore} from "../store/userStore.ts";
+import {useRoute} from "vue-router";
 
-defineProps<{ msg: string }>()
+const userStore = useUserStore();
+const route = useRoute();
 
-const count = ref(0)
+const user = userStore.getUser(route.params.uid as string);
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+  <h1>PROFILE PAGE!!!!!!</h1>
+  <div v-if="user">
+    <p>name: {{user.name}}</p>
+    <p>profile: {{user.profile}}</p>
   </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Install
-    <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
-    in your IDE for a better DX
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
 
 <style scoped>

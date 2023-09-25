@@ -7,12 +7,13 @@ export const useTweetStore = defineStore("tweets", () => {
         contents: string;
         name: string;
         isFav: boolean;
+        uid: string;
     }
     const tweets = ref<Tweet[]>([
-        {id: 1,name: "ちくお", isFav: false, contents: "テレビおもろいな〜"},
-        {id: 2,name: "もち山", isFav: false, contents: "もちうますぎる"},
-        {id: 3,name: "バカンスじろう", isFav: false, contents: "ソーキそば食べたい"},
-        {id: 4,name: "パスタ吸い込みマン", isFav: false, contents: "パスタ食べてたら一日が終わった"},
+        {id: 1,uid:"chikuo",name: "ちくお", isFav: false, contents: "テレビおもろいな〜"},
+        {id: 2,uid:"mochiyama",name: "もち山", isFav: false, contents: "もちうますぎる"},
+        {id: 3,uid:"vacajirou",name: "バカンスじろう", isFav: false, contents: "ソーキそば食べたい"},
+        {id: 4,uid:"pasta_suikomu",name: "パスタ吸い込みマン", isFav: false, contents: "パスタ食べてたら一日が終わった"},
     ]);
 
     const inputTweet = ref("");
@@ -26,6 +27,7 @@ export const useTweetStore = defineStore("tweets", () => {
                 name: "あなた",
                 contents: inputTweet.value,
                 isFav: false,
+                uid: "me"
             });
             inputTweet.value = "";
         },
