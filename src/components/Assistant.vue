@@ -1,10 +1,15 @@
 <script setup lang="ts">
+  import {ref} from "vue";
 
+  const recording = ref(false);
 </script>
 
 <template>
   <div class="assistantBox">
-    <button>🎤</button>
+    <button
+        @click="recording = !recording">🎤
+      <template v-if="recording">[recording]</template>
+    </button>
     <p>msg</p>
     <p>msg</p>
     <p>msg</p>
