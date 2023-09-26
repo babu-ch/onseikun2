@@ -53,14 +53,14 @@ out
 
 export function useOpenAi() {
     const openai = new OpenAI({
-        apiKey: 'my api key',
+        apiKey: import.meta.env.VITE_OPENAI_API_KEY,
         dangerouslyAllowBrowser: true,
-    });
+    })
 
-    const routeHistories = ref<string[]>([]);
-    const route = useRoute();
+    const routeHistories = ref<string[]>([])
+    const route = useRoute()
     watch(() => route.path, () => {
-        routeHistories.value.unshift(location.pathname);
+        routeHistories.value.unshift(location.pathname)
     });
 
     return {
