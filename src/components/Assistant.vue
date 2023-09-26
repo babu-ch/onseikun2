@@ -1,38 +1,14 @@
 <script setup lang="ts">
-import {ref, watch} from "vue";
+  import {useRecorder} from "../composables/recorder.ts";
 
-  const recording = ref(false);
-
-  const rec = new webkitSpeechRecognition()
-  rec.continuous = false
-  rec.interimResults = false
-  rec.lang = "ja-JP"
-
-  rec.onresult = (e) => {
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      if (!e.results[i].isFinal) continue
-
-      const { transcript } = e.results[i][0]
-      console.log(`Recognised: ${transcript}`)
-    }
-  }
-
-  rec.onend = () => {
-    if (recording.value) {
-      rec.start();
-    }
-  }
-
-  watch(recording, () => {
-    recording.value ? rec.start() : rec.stop();
-  })
+  const recorder = useRecorder();
 </script>
 
 <template>
   <div class="assistantBox">
     <button
-        @click="recording = !recording">🎤
-      <template v-if="recording">[recording]</template>
+        @click="recorder.recording.value = !recorder.recording.value">🎤
+      <template v-if="recorder.recording.value">[recording]</template>
     </button>
     <p>msg</p>
     <p>msg</p>
