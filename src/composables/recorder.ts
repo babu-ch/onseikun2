@@ -1,7 +1,7 @@
-import {ref, watch} from "vue";
+import {ref, watch} from "vue"
 export function useRecorder() {
-    const recording = ref(false);
-    const text = ref("");
+    const recording = ref(false)
+    const text = ref("")
 
     const rec = new webkitSpeechRecognition()
     rec.continuous = false
@@ -14,26 +14,27 @@ export function useRecorder() {
 
             const { transcript } = e.results[i][0]
             console.log(`Recognised: ${transcript}`)
-            text.value += transcript;
+            text.value += transcript
         }
     }
 
     rec.onend = () => {
         if (recording.value) {
-            rec.start();
+            rec.start()
         }
     }
 
     watch(recording, () => {
         if (recording.value) {
-            rec.start();
-            return;
+            text.value = ""
+            rec.start()
+            return
         }
-        rec.stop();
-        text.value = "";
+        rec.stop()
     })
 
     return {
-        recording
+        recording,
+        text,
     }
 }
