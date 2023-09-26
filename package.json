@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "build": "echo 'APIKEYが含まれるのでbuildダメ。'",
+    "preview": "echo 'APIKEYが含まれるのでbuildダメ。'"
   },
   "dependencies": {
     "@types/dom-speech-recognition": "^0.0.2",
