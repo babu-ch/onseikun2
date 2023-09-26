@@ -21,7 +21,7 @@
   right: 0;
   bottom: 0;
   position: fixed;
-  height: 600px;
+  height: 400px;
   width: 300px;
   background: #213547;
   padding: 10px;
