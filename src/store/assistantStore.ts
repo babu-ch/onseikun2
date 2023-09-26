@@ -9,7 +9,15 @@ export const useAssistantStore = defineStore("assy", () => {
         text: string;
     }
 
-    const logs = ref<Log[]>([]);
+    const logs = ref<Log[]>([])
+
+    watch(logs, () => {
+        const lastLog = logs.value[logs.value.length - 1]
+        if (lastLog.name === "assistant") {
+            return
+        }
+        // POST
+    })
 
 
     return {
