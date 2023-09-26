@@ -1,6 +1,8 @@
 import OpenAI from 'openai';
 import {useUserStore} from "../store/userStore.ts";
 import {useTweetStore} from "../store/tweetStore.ts";
+import {ref, watch} from "vue";
+import {useRoute} from "vue-router";
 
 const prompt = `
 あなたはwebサイトのアシスタントです
@@ -32,6 +34,7 @@ in
   currentLocation: string; // 現在のpath
   users: object[]; // ユーザ情報
   tweets: object[]; // つぶやき情報
+  routeHistories: string[]; // 過去のlocationの履歴 最新はcurrentLocationと同じ
 }
 
 out
@@ -51,6 +54,13 @@ out
 export function useOpenAi() {
     const openai = new OpenAI({
         apiKey: 'my api key',
+        dangerouslyAllowBrowser: true,
+    });
+
+    const routeHistories = ref<string[]>([]);
+    const route = useRoute();
+    watch(() => route.path, () => {
+        routeHistories.value.unshift(location.pathname);
     });
 
     return {
