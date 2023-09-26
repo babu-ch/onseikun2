@@ -20,6 +20,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "node_modules/.pnpm/@types+dom-speech-recognition@0.0.2/node_modules/@types/dom-speech-recognition/index.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

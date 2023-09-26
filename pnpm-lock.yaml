@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@types/dom-speech-recognition':
+    specifier: ^0.0.2
+    version: 0.0.2
   pinia:
     specifier: ^2.1.6
     version: 2.1.6(typescript@5.0.2)(vue@3.3.4)
@@ -254,6 +257,10 @@ packages:
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
+
+  /@types/dom-speech-recognition@0.0.2:
+    resolution: {integrity: sha512-GZbxBsBYBMAbpPDYg64KhAr/V8MbrlsNqrjnZJGikLdNqlQbTu+u548jg7c31ZI30/vXAX+v31t/aDr4soiBEg==}
+    dev: false
 
   /@vitejs/plugin-vue@4.2.3(vite@4.4.5)(vue@3.3.4):
     resolution: {integrity: sha512-R6JDUfiZbJA9cMiguQ7jxALsgiprjBeHL5ikpXfJCH62pPHtI+JdJ5xWj6Ev73yXSlYl86+blXn1kZHQ7uElxw==}
