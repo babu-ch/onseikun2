@@ -1,10 +1,12 @@
 import {ref, watch} from "vue"
+import {useAssistantStore} from "../store/assistantStore.ts";
 export function useRecorder() {
+    const assistantStore = useAssistantStore();
     const recording = ref(false)
-    const text = ref("")
+    const recordingText = ref("")
 
     const rec = new webkitSpeechRecognition()
-    rec.continuous = false
+    rec.continuous = true
     rec.interimResults = false
     rec.lang = "ja-JP"
 
@@ -14,19 +16,23 @@ export function useRecorder() {
 
             const { transcript } = e.results[i][0]
             console.log(`Recognised: ${transcript}`)
-            text.value += transcript
+            recordingText.value += transcript
         }
     }
 
     rec.onend = () => {
-        if (recording.value) {
-            rec.start()
-        }
+        recording.value = false
+        assistantStore.logs.unshift(
+            {
+                name: "you",
+                text: recordingText.value
+            }
+        )
     }
 
     watch(recording, () => {
         if (recording.value) {
-            text.value = ""
+            recordingText.value = ""
             rec.start()
             return
         }
@@ -35,6 +41,6 @@ export function useRecorder() {
 
     return {
         recording,
-        text,
+        recordingText,
     }
 }

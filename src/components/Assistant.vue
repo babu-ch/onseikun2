@@ -1,7 +1,9 @@
 <script setup lang="ts">
   import {useRecorder} from "../composables/recorder.ts";
+  import {useAssistantStore} from "../store/assistantStore.ts";
 
   const recorder = useRecorder();
+  const assistantStore = useAssistantStore();
 </script>
 
 <template>
@@ -10,14 +12,7 @@
         @click="recorder.recording.value = !recorder.recording.value">🎤
       <template v-if="recorder.recording.value">[recording]</template>
     </button>
-    <p>msg</p>
-    <p>msg</p>
-    <p>msg</p>
-    <p>msg</p>
-    <p>msg</p>
-    <p>msg</p>
-    <p>msg</p>
-    <p>msg</p>
+    <p v-for="log in assistantStore.logs">{{log.name}}: {{log.text}}</p>
   </div>
 </template>
 
@@ -33,5 +28,7 @@
 }
 .assistantBox p {
   border-bottom: 1px solid #ccc;
+  font-size: 0.8em;
+  text-align: left;
 }
 </style>
