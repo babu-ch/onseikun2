@@ -3,6 +3,7 @@ import {useUserStore} from "../store/userStore.ts";
 import {useTweetStore} from "../store/tweetStore.ts";
 import {ref, watch} from "vue";
 import {useRoute} from "vue-router";
+import {TCommand} from "./commandHandler.ts";
 
 const prompt = `
 あなたはwebサイトのアシスタントです
@@ -53,12 +54,7 @@ out
 
 type TAnswer = {
     answer: string;
-    commands: {
-        type:"move"|"favorite"|"post",
-        newLocation: string;
-        favoriteId: string;
-        postText: string;
-    }[];
+    commands: TCommand[];
 }
 
 export function useOpenAi() {
@@ -74,7 +70,7 @@ export function useOpenAi() {
     });
 
     return {
-        async completion(question: string) {
+        async getAnswer(question: string) {
             const chatCompletion = await openai.chat.completions.create({
                 messages: [
                     { role: "system", content: prompt },

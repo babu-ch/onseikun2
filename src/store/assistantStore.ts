@@ -1,11 +1,12 @@
 import {defineStore} from "pinia";
-import {computed, reactive, ref, watch} from "vue";
-import {useRecorder} from "../composables/recorder.ts";
+import {ref, watch} from "vue";
 import {useOpenAi} from "../composables/openai.ts";
+import {useCommandHandler} from "../composables/commandHandler.ts";
 
 export const useAssistantStore = defineStore("assy", () => {
 
-    const openai = useOpenAi();
+    const commandHandler = useCommandHandler()
+    const openai = useOpenAi()
 
     type Log = {
         name: "you"|"assistant";
@@ -14,12 +15,21 @@ export const useAssistantStore = defineStore("assy", () => {
 
     const logs = ref<Log[]>([])
 
-    watch(logs, () => {
+    watch(logs, async () => {
         const lastLog = logs.value[logs.value.length - 1]
         if (lastLog.name === "assistant") {
             return
         }
         // POST
+        const answer = await openai.getAnswer(lastLog.text)
+        if (!answer) {
+            return
+        }
+        logs.value.push({
+            name: "assistant",
+            text: answer.answer,
+        })
+        commandHandler.execCommands(answer.commands)
     })
 
 
