@@ -61,6 +61,8 @@ type TAnswer = {
 }
 
 export function useOpenAi() {
+    // WARNING!
+    // サンプルなのでフロントからOpenAIのAPIを叩いていますが、実際にこのようなものを作る時はAI部分はbackendで実装してください
     const openai = new OpenAI({
         apiKey: import.meta.env.VITE_OPENAI_API_KEY,
         dangerouslyAllowBrowser: true,
