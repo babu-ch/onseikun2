@@ -14,14 +14,17 @@ export const useTweetStore = defineStore("tweets", () => {
         {id: 2,uid:"mochiyama",name: "もち山", isFav: false, contents: "もちうますぎる"},
         {id: 3,uid:"vacajirou",name: "バカンスじろう", isFav: false, contents: "ソーキそば食べたい"},
         {id: 4,uid:"pasta_suikomu",name: "パスタ吸い込みマン", isFav: false, contents: "パスタ食べてたら一日が終わった"},
-    ]);
+    ])
 
-    const inputTweet = ref("");
+    const inputTweet = ref("")
 
     return {
         tweets,
         inputTweet,
-        post() {
+        post(text:string|null=null) {
+            if (text) {
+                inputTweet.value = text
+            }
             tweets.value.unshift({
                 id: tweets.value.length + 1,
                 name: "あなた",
@@ -29,7 +32,14 @@ export const useTweetStore = defineStore("tweets", () => {
                 isFav: false,
                 uid: "me"
             });
-            inputTweet.value = "";
+            inputTweet.value = ""
+        },
+        toggleFavorite(id: number) {
+            const tweet = tweets.value.find(tweet => tweet.id === id)
+            if (!tweet) {
+                return
+            }
+            tweet.isFav = !tweet.isFav
         },
     };
 });
