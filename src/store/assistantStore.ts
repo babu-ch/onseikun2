@@ -22,6 +22,7 @@ export const useAssistantStore = defineStore("assy", () => {
         }
         // POST
         const answer = await openai.getAnswer(lastLog.text)
+        console.error({answer})
         if (!answer) {
             return
         }
