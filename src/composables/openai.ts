@@ -41,7 +41,10 @@ in
 out
 {
   answer: string; // 何をやったのか、または質問に対する返答
-  commands: [ // commandは複数実行できるようになっています。例えばcurrentLocationが/ならつぶやきたい場合は/tweetに移動してからpostする必要があります
+  // commandは複数実行できるようになっています。
+  // 例えばcurrentLocationが/ならつぶやきたい場合は/tweetに移動してからpostする必要があります
+  // commandは必ずしも毎回返す必要はありません。例えば雑談だったらcommandsは空配列です
+  commands: [ 
     {
         type: "move"|"favorite"|"post" // move=ページ移動, favorite=いいねする or いいねを解除する, post=つぶやく
         newLocation: string; // type=moveの時に移動したいpathを指定する

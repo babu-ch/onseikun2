@@ -22,7 +22,7 @@ export function useRecorder() {
 
     rec.onend = () => {
         recording.value = false
-        assistantStore.logs.push(
+        assistantStore.logs.unshift(
             {
                 name: "you",
                 text: recordingText.value

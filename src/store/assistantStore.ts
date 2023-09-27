@@ -16,7 +16,7 @@ export const useAssistantStore = defineStore("assy", () => {
     const logs = ref<Log[]>([])
 
     watch(logs, async () => {
-        const lastLog = logs.value[logs.value.length - 1]
+        const lastLog = logs.value[0]
         if (lastLog.name === "assistant") {
             return
         }
@@ -26,12 +26,12 @@ export const useAssistantStore = defineStore("assy", () => {
         if (!answer) {
             return
         }
-        logs.value.push({
+        logs.value.unshift({
             name: "assistant",
             text: answer.answer,
         })
         commandHandler.execCommands(answer.commands)
-    })
+    }, {deep: true})
 
 
     return {
