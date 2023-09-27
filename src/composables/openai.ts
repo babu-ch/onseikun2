@@ -51,6 +51,16 @@ out
 }
 `
 
+type TAnswer = {
+    answer: string;
+    commands: {
+        type:"move"|"favorite"|"post",
+        newLocation: string;
+        favoriteId: string;
+        postText: string;
+    }[];
+}
+
 export function useOpenAi() {
     const openai = new OpenAI({
         apiKey: import.meta.env.VITE_OPENAI_API_KEY,
@@ -80,6 +90,11 @@ export function useOpenAi() {
                 stream: false,
             })
             console.log(chatCompletion.choices)
+            const content = chatCompletion.choices[0].message.content as string
+            if (!content) {
+                return
+            }
+            return JSON.parse(content) as TAnswer
         }
     }
 }
