@@ -22,7 +22,7 @@ export const useTweetStore = defineStore("tweets", () => {
         tweets,
         inputTweet,
         post(text:string|null=null) {
-            if (text) {
+            if (typeof text === "string") {
                 inputTweet.value = text
             }
             tweets.value.unshift({
