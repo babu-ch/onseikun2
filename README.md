@@ -1,4 +1,6 @@
 
+https://qiita.com/babu-ch/items/3aac62f73972bc59763e
+
 # install & run
 
 envをコピーし、.env.localのVITE_OPENAI_API_KEYに自分のOpenAIのAPIKEYを設定する
