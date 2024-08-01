@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@types/dom-speech-recognition": "^0.0.2",
-    "openai": "^4.10.0",
+    "firebase": "^10.12.4",
     "pinia": "^2.1.6",
     "vue": "^3.3.4",
     "vue-router": "4"
