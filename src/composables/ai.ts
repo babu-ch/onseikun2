@@ -89,7 +89,7 @@ export function useAI() {
                 generationConfig:  { responseMimeType: "application/json" }
             })
 
-            const result = await model.generateContent(`${input}\n# output\n`)
+            const result = await model.generateContent(input)
 
             const text = result.response.text()
             console.log(text)
