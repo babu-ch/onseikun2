@@ -1,9 +1,10 @@
-import OpenAI from 'openai';
 import {useUserStore} from "../store/userStore.ts";
 import {useTweetStore} from "../store/tweetStore.ts";
 import {ref, watch} from "vue";
 import {useRoute} from "vue-router";
 import {TCommand} from "./commandHandler.ts";
+import {vertexAI} from "../main.ts";
+import {getGenerativeModel} from "firebase/vertexai-preview";
 
 const prompt = `
 あなたはwebサイトのアシスタントです
@@ -53,6 +54,8 @@ out
     }
   ]
 }
+
+# input
 `
 
 type TAnswer = {
@@ -60,13 +63,7 @@ type TAnswer = {
     commands: TCommand[];
 }
 
-export function useOpenAi() {
-    // WARNING!
-    // サンプルなのでフロントからOpenAIのAPIを叩いていますが、実際にこのようなものを作る時はAI部分はbackendで実装してください
-    const openai = new OpenAI({
-        apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-        dangerouslyAllowBrowser: true,
-    })
+export function useAI() {
 
     const routeHistories = ref<string[]>([])
     const route = useRoute()
@@ -76,26 +73,31 @@ export function useOpenAi() {
 
     return {
         async getAnswer(question: string) {
-            const chatCompletion = await openai.chat.completions.create({
-                messages: [
-                    { role: "system", content: prompt },
-                    { role: "user", content: JSON.stringify({
-                            uid: "me",
-                            question,
-                            currentLocation: location.pathname,
-                            users: useUserStore().users,
-                            tweets: useTweetStore().tweets,
-                        }) }
-                ],
-                model: 'gpt-3.5-turbo',
-                stream: false,
+            const input = JSON.stringify({
+                uid: "me",
+                question,
+                currentLocation: location.pathname,
+                users: useUserStore().users,
+                tweets: useTweetStore().tweets,
             })
-            console.log(chatCompletion.choices)
-            const content = chatCompletion.choices[0].message.content as string
-            if (!content) {
+
+            // Initialize the generative model with a model that supports your use case
+            // Gemini 1.5 models are versatile and can be used with all API capabilities
+            const model = getGenerativeModel(vertexAI, {
+                model: "gemini-1.5-flash",
+                systemInstruction: prompt,
+                generationConfig:  { responseMimeType: "application/json" }
+            })
+
+            const result = await model.generateContent(`${input}\n# output\n`)
+
+            const text = result.response.text()
+            console.log(text)
+
+            if (!text) {
                 return
             }
-            return JSON.parse(content) as TAnswer
+            return JSON.parse(text) as TAnswer
         }
     }
 }

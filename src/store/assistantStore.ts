@@ -1,12 +1,12 @@
 import {defineStore} from "pinia";
 import {ref, watch} from "vue";
-import {useOpenAi} from "../composables/openai.ts";
+import {useAI} from "../composables/ai.ts";
 import {useCommandHandler} from "../composables/commandHandler.ts";
 
 export const useAssistantStore = defineStore("assy", () => {
 
     const commandHandler = useCommandHandler()
-    const openai = useOpenAi()
+    const openai = useAI()
 
     type Log = {
         name: "you"|"assistant";
